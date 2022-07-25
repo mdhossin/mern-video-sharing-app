@@ -14,9 +14,8 @@ export const Container = styled.div`
 export const Wrapper = styled.div`
   width: 100%;
   max-width: 1280px;
-
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  padding: 16px 24px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  padding: 16px 18px 100px 24px;
 `;

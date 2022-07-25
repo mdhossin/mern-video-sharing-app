@@ -10,6 +10,7 @@ export const darkTheme = {
   inputColor: "hsla(0, 100%, 100%, 0.88)",
   searchBgBtn: "hsla(0, 0%, 100%, 0.08)",
   searchBgBorder: "hsl(0, 0%, 18.82%)",
+  grayText: "#aaa",
 };
 export const lightTheme = {
   bg: "#f9f9f9",
@@ -23,4 +24,5 @@ export const lightTheme = {
   inputColor: "hsl(0, 0%, 6.7%)",
   searchBgBtn: "#f8f8f8",
   searchBgBorder: "#d3d3d3",
+  grayText: "#aaa",
 };

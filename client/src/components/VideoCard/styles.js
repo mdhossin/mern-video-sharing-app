@@ -55,7 +55,7 @@ export const ViewsContainer = styled.div`
   margin-top: 5px;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 3px;
 `;
 export const Views = styled.span`
   font-size: 14px;

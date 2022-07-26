@@ -130,6 +130,22 @@ export const Container = styled.div`
             color: ${({ theme }) => theme.text};
           }
 
+          .changeMode {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            color: ${({ theme }) => theme.text};
+            font-weight: 600;
+            font-size: 0.95rem;
+            line-height: 1.25rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+
+            svg {
+              font-size: 1.4rem;
+            }
+          }
+
           a {
             display: flex;
             align-items: center;

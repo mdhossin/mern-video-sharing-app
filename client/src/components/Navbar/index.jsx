@@ -7,6 +7,7 @@ import CreateNewFolderOutlinedIcon from "@mui/icons-material/CreateNewFolderOutl
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import { Link } from "react-router-dom";
 const Navbar = ({ darkMode, setDarkMode }) => {
   const [navbarState, setNavbarState] = useState(false);
   return (
@@ -37,10 +38,12 @@ const Navbar = ({ darkMode, setDarkMode }) => {
               <NotificationsNoneOutlinedIcon />
             </div>
 
-            <button>
-              <AccountCircleOutlinedIcon />
-              Sign In
-            </button>
+            <Link to="/signin">
+              <button>
+                <AccountCircleOutlinedIcon />
+                Sign In
+              </button>
+            </Link>
           </div>
         </Wrapper>
       </Container>

@@ -162,11 +162,11 @@ const Menu = ({ setNavbarState, navbarState, setDarkMode, darkMode }) => {
                   setDarkMode((prev) => !prev);
                 }}
               >
-                <Link to="/">
+                <div className="changeMode">
                   <SettingsBrightnessOutlinedIcon />
 
                   <span>{darkMode ? "Light" : "Dark"} Mode</span>
-                </Link>
+                </div>
               </li>
             </ul>
           </div>

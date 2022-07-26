@@ -14,32 +14,35 @@ import {
   Days,
   ViewsContainer,
 } from "./styles";
+import { Link } from "react-router-dom";
 
 const VideoCard = ({
   video: { img, name, title, profilePic, days, views },
 }) => {
   return (
-    <Container>
-      <ImageContainer>
-        <Image src={img} />
-        <ContentWraper>
-          <Logo>
-            <LogoImage src={profilePic} />
-          </Logo>
-          <TitleContainer>
-            <Title>{title}</Title>
+    <Link to={`/video/${"511"}`}>
+      <Container>
+        <ImageContainer>
+          <Image src={img} />
+          <ContentWraper>
+            <Logo>
+              <LogoImage src={profilePic} />
+            </Logo>
+            <TitleContainer>
+              <Title>{title}</Title>
 
-            <ViewsContent>
-              <Name>{name}</Name>
-              <ViewsContainer>
-                <Views>{views}</Views>
-                <Days>{days}</Days>
-              </ViewsContainer>
-            </ViewsContent>
-          </TitleContainer>
-        </ContentWraper>
-      </ImageContainer>
-    </Container>
+              <ViewsContent>
+                <Name>{name}</Name>
+                <ViewsContainer>
+                  <Views>{views} •</Views>
+                  <Days>{days}</Days>
+                </ViewsContainer>
+              </ViewsContent>
+            </TitleContainer>
+          </ContentWraper>
+        </ImageContainer>
+      </Container>
+    </Link>
   );
 };
 

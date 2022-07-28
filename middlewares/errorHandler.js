@@ -12,6 +12,7 @@ const errorHandler = (err, req, res, next) => {
     ...err,
     message: "Your request could not be processed. Please try again.",
     ...(process.env.DEBUG_MODE === "true" && { originalError: err.message }),
+    success: false,
   };
 
   if (err.code === 11000) {

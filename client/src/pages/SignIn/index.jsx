@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   Container,
@@ -11,18 +11,43 @@ import {
 } from "./styles";
 
 const SignIn = () => {
+  const [name, setName] = useState("");
+  const [email, setEMail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = () => {};
   return (
     <Container>
       <Wrapper>
         <Title>Sign in</Title>
 
-        <Input type="text" placeholder="Username" />
-        <Input type="password" placeholder="password" />
-        <Button>Sign in</Button>
+        <Input
+          type="text"
+          placeholder="Username"
+          onChange={(e) => setName(e.target.value)}
+        />
+        <Input
+          type="password"
+          placeholder="password"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <Button onClick={handleLogin}>Sign in</Button>
         <Title>or</Title>
-        <Input type="text" placeholder="Username" />
-        <Input type="text" placeholder="email" />
-        <Input type="password" placeholder="Password" />
+        <Input
+          type="text"
+          placeholder="Username"
+          onChange={(e) => setName(e.target.value)}
+        />
+        <Input
+          type="text"
+          placeholder="email"
+          onChange={(e) => setEMail(e.target.value)}
+        />
+        <Input
+          type="password"
+          placeholder="Password"
+          onChange={(e) => setPassword(e.target.value)}
+        />
         <Button>Sign up</Button>
       </Wrapper>
       <More>

@@ -1,5 +1,6 @@
 import CustomErrorHandler from "../services/CustomErrorHandler.js";
 import User from "../models/userModel.js";
+import Video from "../models/videoModel.js";
 
 const usersController = {
   async updateUser(req, res, next) {
@@ -94,6 +95,49 @@ const usersController = {
       } catch (error) {
         return next(error);
       }
+    } catch (error) {
+      return next(error);
+    }
+  },
+
+  async like(req, res, next) {
+    const id = req.user.id;
+    const videoId = req.params.videoId;
+
+    try {
+      await Video.findByIdAndUpdate(videoId, {
+        //$addtoset -  add only one id this user liked or not .. duplicate can not be allowed
+        $addToSet: {
+          likes: id,
+        },
+        // check if already liked if liked when click the dislicks it
+        $pull: {
+          disLikes: id,
+        },
+      });
+
+      res.status(200).json("The video has been liked.");
+    } catch (error) {
+      return next(error);
+    }
+  },
+
+  async dislike(req, res, next) {
+    const id = req.user.id;
+
+    const videoId = req.params.videoId;
+
+    try {
+      await Video.findByIdAndUpdate(videoId, {
+        $addToSet: {
+          disLikes: id,
+        },
+        $pull: {
+          likes: id,
+        },
+      });
+
+      res.status(200).json("The video has been disliked.");
     } catch (error) {
       return next(error);
     }

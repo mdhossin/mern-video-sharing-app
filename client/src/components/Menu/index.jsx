@@ -55,7 +55,7 @@ const Menu = ({ setNavbarState, navbarState, setDarkMode, darkMode }) => {
                 className={currentLink === 2 ? "active" : "none"}
                 onClick={() => setCurrentLink(2)}
               >
-                <Link to="/explore" onClick={() => setNavbarState(false)}>
+                <Link to="/trend" onClick={() => setNavbarState(false)}>
                   <ExploreIcon />
 
                   <span>Explore</span>

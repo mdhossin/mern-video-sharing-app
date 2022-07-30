@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { format } from "timeago.js";
 import {
   Container,
   ImageContainer,
@@ -15,27 +16,40 @@ import {
   ViewsContainer,
 } from "./styles";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { BASE_URL } from "../../client";
 
 const VideoCard = ({
-  video: { img, name, title, profilePic, days, views },
+  video: { imgUrl, name, title, views, createdAt, userId },
 }) => {
+  const [channel, setChannel] = useState({});
+
+  console.log(channel, "channerl");
+  useEffect(() => {
+    const fetchChannel = async () => {
+      const { data } = await axios.get(`${BASE_URL}/api/users/find/${userId}`);
+      setChannel(data);
+    };
+
+    fetchChannel();
+  }, [userId]);
   return (
     <Link to={`/video/${"511"}`}>
       <Container>
         <ImageContainer>
-          <Image src={img} />
+          <Image src={imgUrl} />
           <ContentWraper>
             <Logo>
-              <LogoImage src={profilePic} />
+              <LogoImage src={channel.img} />
             </Logo>
             <TitleContainer>
               <Title>{title}</Title>
 
               <ViewsContent>
-                <Name>{name}</Name>
+                <Name>{channel.name}</Name>
                 <ViewsContainer>
                   <Views>{views} •</Views>
-                  <Days>{days}</Days>
+                  <Days>{format(createdAt)}</Days>
                 </ViewsContainer>
               </ViewsContent>
             </TitleContainer>

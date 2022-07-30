@@ -19,7 +19,7 @@ const SideMenu = () => {
           </Link>
         </li>
         <li>
-          <Link to="/explore">
+          <Link to="/trend">
             <ExploreIcon />
 
             <span>Explore</span>

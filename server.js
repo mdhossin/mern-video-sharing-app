@@ -6,6 +6,7 @@ import errorHandler from "./middlewares/errorHandler.js";
 import authRoutes from "./routes/authRoutes.js";
 import usersRoutes from "./routes/usersRoutes.js";
 import videosRoutes from "./routes/videoRoutes.js";
+import commentsRoutes from "./routes/commentRoutes.js";
 // import path from "path";
 
 dotenv.config();
@@ -30,6 +31,7 @@ app.use("/api/auth", authRoutes);
 // users routes
 app.use("/api/users", usersRoutes);
 app.use("/api/videos", videosRoutes);
+app.use("/api/comments", commentsRoutes);
 
 // if (process.env.NODE_ENV === "production") {
 //   app.use(express.static("client/build"));

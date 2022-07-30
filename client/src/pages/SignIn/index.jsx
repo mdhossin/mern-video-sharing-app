@@ -15,7 +15,10 @@ const SignIn = () => {
   const [email, setEMail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {};
+  const handleLogin = async () => {
+    try {
+    } catch (error) {}
+  };
   return (
     <Container>
       <Wrapper>

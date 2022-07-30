@@ -8,18 +8,18 @@ import authRoutes from "./routes/authRoutes.js";
 import usersRoutes from "./routes/usersRoutes.js";
 import videosRoutes from "./routes/videoRoutes.js";
 import commentsRoutes from "./routes/commentRoutes.js";
-// import path from "path";
+import path from "path";
 
 dotenv.config();
 
 const app = express();
 
-// import { fileURLToPath } from "url";
+import { fileURLToPath } from "url";
 
-// const __filename = fileURLToPath(import.meta.url);
+const __filename = fileURLToPath(import.meta.url);
 
 // 👇️ "/home/john/Desktop/javascript"
-// const __dirname = path.dirname(__filename);
+const __dirname = path.dirname(__filename);
 
 // database connection
 connectDB();
@@ -35,12 +35,12 @@ app.use("/api/users", usersRoutes);
 app.use("/api/videos", videosRoutes);
 app.use("/api/comments", commentsRoutes);
 
-// if (process.env.NODE_ENV === "production") {
-//   app.use(express.static("client/build"));
-//   app.get("*", (req, res) => {
-//     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-//   });
-// }
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
 
 const PORT = process.env.PORT || 5000;
 

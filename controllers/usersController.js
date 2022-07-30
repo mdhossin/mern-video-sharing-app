@@ -51,9 +51,11 @@ const usersController = {
 
   async subscribe(req, res, next) {
     try {
-      await User.findByIdAndUpdate(req.params.id, {
+      // who subscribe like user button clicked to  other channel
+      await User.findByIdAndUpdate(req.user.id, {
         // this is a push method like javascript push method is works to when the new user subscribe then user is push it
         $push: {
+          // check the channel id and push it
           subscribedUsers: req.params.id,
         },
       });
@@ -67,6 +69,31 @@ const usersController = {
       });
 
       res.status(200).json("Subscription successfull.");
+    } catch (error) {
+      return next(error);
+    }
+  },
+
+  async unsubscribe(req, res, next) {
+    try {
+      try {
+        // The $pull operator removes from an existing array all instances of a value or values that match a specified condition
+        await User.findByIdAndUpdate(req.user.id, {
+          $pull: {
+            subscribedUsers: req.params.id,
+          },
+        });
+
+        await User.findByIdAndUpdate(req.params.id, {
+          $inc: {
+            subscribers: -1,
+          },
+        });
+
+        res.status(200).json("Unsubscribed successfull.");
+      } catch (error) {
+        return next(error);
+      }
     } catch (error) {
       return next(error);
     }

@@ -4,7 +4,7 @@ import { VideoCard } from "../../components";
 
 import { Container, Wrapper } from "./styles";
 import axios from "axios";
-
+axios.defaults.withCredentials = true;
 const Home = ({ type }) => {
   const [err, setErr] = useState("");
   const [loading, setLoading] = useState(false);

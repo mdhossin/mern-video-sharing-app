@@ -20,11 +20,10 @@ import axios from "axios";
 import { BASE_URL } from "../../client";
 
 const VideoCard = ({
-  video: { imgUrl, name, title, views, createdAt, userId },
+  video: { imgUrl, name, title, views, createdAt, userId, _id },
 }) => {
   const [channel, setChannel] = useState({});
 
-  console.log(channel, "channerl");
   useEffect(() => {
     const fetchChannel = async () => {
       const { data } = await axios.get(`${BASE_URL}/api/users/find/${userId}`);
@@ -34,7 +33,7 @@ const VideoCard = ({
     fetchChannel();
   }, [userId]);
   return (
-    <Link to={`/video/${"511"}`}>
+    <Link to={`/video/${_id}`}>
       <Container>
         <ImageContainer>
           <Image src={imgUrl} />

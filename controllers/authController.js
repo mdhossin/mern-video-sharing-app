@@ -61,6 +61,7 @@ const authController = {
   },
 
   async signin(req, res, next) {
+    console.log(req.body);
     try {
       const user = await User.findOne({ email: req.body.email });
       if (!user)
@@ -69,7 +70,7 @@ const authController = {
         );
 
       // if user exists
-      const isMatch = await bcrypt.compare(req.body.password, user.password);
+      const isMatch = bcrypt.compare(req.body.password, user.password);
 
       if (!isMatch) {
         return next(
@@ -80,19 +81,68 @@ const authController = {
       const token = generateToken({ id: user._id });
       const { password, ...others } = user._doc;
 
-      res.cookie(String(user._id), token, {
-        path: "/",
-        maxAge: 30 * 24 * 60 * 60 * 1000, // 30days
-        httpOnly: true,
-        sameSite: "lax",
-      });
-
-      return res.status(200).json({
-        message: "Successfully Logged In",
-        ...others,
-      });
+      res
+        .cookie(String(user._id), token, {
+          path: "/",
+          maxAge: 30 * 24 * 60 * 60 * 1000, // 30days
+          httpOnly: true,
+          sameSite: "lax",
+        })
+        .status(200)
+        .json({
+          message: "Successfully Logged In",
+          ...others,
+        });
     } catch (err) {
       return next(err);
+    }
+  },
+
+  async googleAuth(req, res, next) {
+    try {
+      const user = await User.findOne({
+        email: req.body.email,
+      });
+
+      if (user) {
+        const token = generateToken({ id: user._id });
+
+        res
+          .cookie(String(user._id), token, {
+            path: "/",
+            maxAge: 30 * 24 * 60 * 60 * 1000, // 30days
+            httpOnly: true,
+            sameSite: "lax",
+          })
+          .status(200)
+          .json({
+            message: "Successfully Logged In",
+            ...user._doc,
+          });
+      } else {
+        const newUser = new User({
+          ...req.body,
+          fromGoogle: true,
+        });
+
+        const savedUser = await newUser.save();
+        const token = generateToken({ id: user._id });
+
+        res
+          .cookie(String(user._id), token, {
+            path: "/",
+            maxAge: 30 * 24 * 60 * 60 * 1000, // 30days
+            httpOnly: true,
+            sameSite: "lax",
+          })
+          .status(200)
+          .json({
+            message: "Successfully Logged In",
+            ...savedUser._doc,
+          });
+      }
+    } catch (error) {
+      return next(error);
     }
   },
 };

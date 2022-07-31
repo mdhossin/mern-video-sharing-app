@@ -6,7 +6,9 @@ import jwt from "jsonwebtoken";
 
 const auth = async (req, res, next) => {
   try {
-    const token = req.cookies.access_token;
+    const cookies = req.headers.cookie;
+    const token = cookies.split("=")[1];
+    console.log(cookies, "cookieds");
 
     if (!token) {
       return next(CustomErrorHandler.unAuthorized());

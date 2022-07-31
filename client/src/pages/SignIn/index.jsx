@@ -1,4 +1,12 @@
+import axios from "axios";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { BASE_URL } from "../../client";
+import {
+  loginFailed,
+  loginStart,
+  loginSuccess,
+} from "../../redux/features/userSlice";
 import {
   Button,
   Container,
@@ -10,24 +18,58 @@ import {
   Wrapper,
 } from "./styles";
 
+import { useNavigate } from "react-router-dom";
+
 const SignIn = () => {
   const [name, setName] = useState("");
   const [email, setEMail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = async () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
     try {
-    } catch (error) {}
+      dispatch(loginStart());
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      const { data } = await axios.post(
+        `${BASE_URL}/api/auth/signin`,
+        {
+          email,
+          password,
+        },
+        config
+      );
+
+      dispatch(loginSuccess(data));
+      navigate("/");
+      // alert("Login successfull");
+    } catch (error) {
+      dispatch(
+        loginFailed(
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message
+        )
+      );
+    }
   };
+
   return (
     <Container>
       <Wrapper>
         <Title>Sign in</Title>
 
         <Input
-          type="text"
-          placeholder="Username"
-          onChange={(e) => setName(e.target.value)}
+          type="email"
+          placeholder="email"
+          onChange={(e) => setEMail(e.target.value)}
         />
         <Input
           type="password"

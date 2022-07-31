@@ -30,7 +30,9 @@ const usersController = {
     if (req.params.id === req.user.id) {
       try {
         await User.findByIdAndDelete(req.params.id);
-        res.status(200).json("User has been deleted.");
+        res.status(200).json({
+          message: "User has been deleted.",
+        });
       } catch (error) {
         return next(error);
       }
@@ -69,7 +71,9 @@ const usersController = {
         },
       });
 
-      res.status(200).json("Subscription successfull.");
+      res.status(200).json({
+        message: "Subscription successfull.",
+      });
     } catch (error) {
       return next(error);
     }
@@ -91,7 +95,9 @@ const usersController = {
           },
         });
 
-        res.status(200).json("Unsubscribed successfull.");
+        res.status(200).json({
+          message: "Unsubscribed successfull.",
+        });
       } catch (error) {
         return next(error);
       }
@@ -116,7 +122,9 @@ const usersController = {
         },
       });
 
-      res.status(200).json("The video has been liked.");
+      res.status(200).json({
+        message: "The video has been liked.",
+      });
     } catch (error) {
       return next(error);
     }
@@ -137,7 +145,9 @@ const usersController = {
         },
       });
 
-      res.status(200).json("The video has been disliked.");
+      res.status(200).json({
+        message: "The video has been disliked.",
+      });
     } catch (error) {
       return next(error);
     }

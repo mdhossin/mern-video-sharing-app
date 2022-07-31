@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import Menu from "../Menu";
-import { Container, Wrapper } from "./styles";
+import { Container, UserProfile, Wrapper } from "./styles";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import CreateNewFolderOutlinedIcon from "@mui/icons-material/CreateNewFolderOutlined";
-import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
+// import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 const Navbar = ({ darkMode, setDarkMode }) => {
   const [navbarState, setNavbarState] = useState(false);
+  const user = useSelector((state) => state.user.user);
+  console.log(user, "user");
   return (
     <>
       <Container>
@@ -31,19 +34,25 @@ const Navbar = ({ darkMode, setDarkMode }) => {
             </button>
           </div>
           <div className="login">
-            <div className="camera">
-              <CreateNewFolderOutlinedIcon />
-            </div>
-            <div className="notification">
-              <NotificationsNoneOutlinedIcon />
-            </div>
+            {user ? (
+              <>
+                <div className="camera">
+                  <CreateNewFolderOutlinedIcon />
+                </div>
 
-            <Link to="/signin">
-              <button>
-                <AccountCircleOutlinedIcon />
-                Sign In
-              </button>
-            </Link>
+                <UserProfile>
+                  <img src={user.img} alt="" />
+                  <h5>{user.name}</h5>
+                </UserProfile>
+              </>
+            ) : (
+              <Link to="/signin">
+                <button>
+                  <AccountCircleOutlinedIcon />
+                  Sign In
+                </button>
+              </Link>
+            )}
           </div>
         </Wrapper>
       </Container>

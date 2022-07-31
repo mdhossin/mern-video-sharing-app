@@ -4,6 +4,7 @@ import { VideoCard } from "../../components";
 
 import { Container, Wrapper } from "./styles";
 import axios from "axios";
+
 const Home = ({ type }) => {
   const [err, setErr] = useState("");
   const [loading, setLoading] = useState(false);
@@ -13,7 +14,9 @@ const Home = ({ type }) => {
     const fetchVideos = async () => {
       try {
         setLoading(true);
-        const { data } = await axios.get(`${BASE_URL}/api/videos/${type}`);
+        const { data } = await axios.get(`${BASE_URL}/api/videos/${type}`, {
+          withCredentials: true,
+        });
 
         setVideos(data);
         setErr("");
@@ -21,7 +24,7 @@ const Home = ({ type }) => {
       } catch (error) {
         setLoading(false);
         setErr(
-          error.response && error.response.data.message
+          error?.response && error?.response?.data?.message
             ? error.response.data.message
             : error.message
         );

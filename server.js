@@ -25,9 +25,10 @@ const __dirname = path.dirname(__filename);
 connectDB();
 
 // routes here
-app.use(cookieParser());
 app.use(express.json());
-app.use(cors());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 // auth routes
 app.use("/api/auth", authRoutes);
 // users routes

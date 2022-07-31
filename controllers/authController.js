@@ -54,7 +54,7 @@ const authController = {
       const newUser = new User({ name, email, password: hashedPassword });
 
       await newUser.save();
-      res.status(201).json("User has been created Successfully!");
+      res.status(201).json({ message: "User has been created Successfully!" });
     } catch (err) {
       return next(err);
     }
@@ -80,13 +80,17 @@ const authController = {
       const token = generateToken({ id: user._id });
       const { password, ...others } = user._doc;
 
-      res
-        .cookie("access_token", token, {
-          httpOnly: true,
-          maxAge: 30 * 24 * 60 * 60 * 1000, // 30days
-        })
-        .status(200)
-        .json(others);
+      res.cookie(String(user._id), token, {
+        path: "/",
+        maxAge: 30 * 24 * 60 * 60 * 1000, // 30days
+        httpOnly: true,
+        sameSite: "lax",
+      });
+
+      return res.status(200).json({
+        message: "Successfully Logged In",
+        ...others,
+      });
     } catch (err) {
       return next(err);
     }

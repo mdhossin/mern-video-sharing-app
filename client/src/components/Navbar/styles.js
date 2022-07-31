@@ -140,3 +140,20 @@ export const Wrapper = styled.div`
     }
   }
 `;
+
+export const UserProfile = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+  }
+
+  h5 {
+    color: ${({ theme }) => theme.text};
+    text-transform: capitalize;
+    font-size: 1rem;
+  }
+`;
